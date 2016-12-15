@@ -1,5 +1,6 @@
 package br.com.minitwitter.model;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,8 +11,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
-public class User {
+public class User implements UserDetails {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
   @Id
   @Size(min=3, max=12, message="Your username has to have 3-12 digits")
@@ -21,10 +30,12 @@ public class User {
   private String password;
   
   @OneToMany(fetch = FetchType.EAGER)
-  List<Role> roles;
+  private List<Role> roles;
   
   @ManyToMany
-  List<User> following;
+  private List<User> following;
+  
+  private String profilePhotoPath;
 
   public List<User> getFollowing() {
     return Collections.unmodifiableList(following);
@@ -34,6 +45,7 @@ public class User {
     following.add(user);
   }
 
+  @Override
   public String getUsername() {
     return username;
   }
@@ -42,6 +54,7 @@ public class User {
     this.username = username;
   }
 
+  @Override
   public String getPassword() {
     return password;
   }
@@ -72,6 +85,39 @@ public class User {
         return false;
     } else if (!username.equals(other.username))
       return false;
+    return true;
+  }
+
+  public String getProfilePhotoPath() {
+    return profilePhotoPath;
+  }
+
+  public void setProfilePhotoPath(String profilePhotoPath) {
+    this.profilePhotoPath = profilePhotoPath;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles;
+  }
+  
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
     return true;
   }
 
