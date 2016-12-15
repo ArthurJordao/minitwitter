@@ -3,7 +3,10 @@ package br.com.minitwitter.model;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -12,11 +15,15 @@ import javax.persistence.TemporalType;
 public class Notification {
   
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+  
+  @ManyToOne
+  private User user;
   
   private String content;
   
-  private Boolean read;
+  private boolean readed;
   
   @Temporal(TemporalType.TIMESTAMP)
   private Calendar datetime;
@@ -29,12 +36,25 @@ public class Notification {
     this.content = content;
   }
 
-  public Boolean getRead() {
-    return read;
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
-  public void setRead(Boolean read) {
-    this.read = read;
+  public Calendar getDatetime() {
+    return datetime;
+  }
+
+  public void setDatetime(Calendar datetime) {
+    this.datetime = datetime;
+  }
+
+  public boolean isReaded() {
+    return readed;
+  }
+
+  public void setReaded(boolean readed) {
+    this.readed = readed;
   }
 
 }
