@@ -1,12 +1,12 @@
 package br.com.minitwitter.model;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -18,11 +18,11 @@ public class Tweet {
   @ManyToOne
   private User poster;
   
-  @ManyToMany
-  private Set<User> mentioneds;
-  
   @Size(max=140)
   private String content;
+  
+  @Temporal(TemporalType.TIMESTAMP)
+  private Calendar timeday;
 
   public Long getId() {
     return id;
@@ -48,12 +48,12 @@ public class Tweet {
     this.content = content;
   }
 
-  public Set<User> getMentioneds() {
-    return Collections.unmodifiableSet(mentioneds);
+  public Calendar getTimeday() {
+    return timeday;
   }
 
-  public void addMentioned(User mentioned) {
-    mentioneds.add(mentioned);
+  public void setTimeday(Calendar timeday) {
+    this.timeday = timeday;
   }
-  
+
 }
