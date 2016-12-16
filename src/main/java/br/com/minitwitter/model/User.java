@@ -1,5 +1,6 @@
 package br.com.minitwitter.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -29,11 +29,11 @@ public class User implements UserDetails {
   @Size(min=8, max=16, message="Password has to have 8-16 digits")
   private String password;
   
-  @OneToMany(fetch = FetchType.EAGER)
-  private List<Role> roles;
+  @ManyToMany(fetch = FetchType.EAGER)
+  private List<Role> roles = new ArrayList<>();
   
   @ManyToMany
-  private List<User> following;
+  private List<User> following = new ArrayList<>();
   
   private String profilePhotoPath;
 
@@ -119,6 +119,10 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+  
+  public void addRole(Role role) {
+    roles.add(role);
   }
 
 }
