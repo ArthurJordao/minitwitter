@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -23,24 +24,31 @@ public class User implements UserDetails {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Size(min=3, max=12, message="Your username has to have 3-12 digits")
+  @Size(min = 3, max = 12, message = "Your username has to have 3-12 digits")
   private String username;
 
-  @Size(min=8, max=16, message="Password has to have 8-16 digits")
+  @Size(min = 8, max = 16, message = "Password has to have 8-16 digits")
   private String password;
-  
+
   @ManyToMany(fetch = FetchType.EAGER)
   private List<Role> roles = new ArrayList<>();
-  
+
   @ManyToMany
   private List<User> following = new ArrayList<>();
-  
+
+  @OneToMany(mappedBy = "poster")
+  private List<Tweet> tweets = new ArrayList<>();
+
   private String profilePhotoPath;
+
+  public List<Tweet> getTweets() {
+    return tweets;
+  }
 
   public List<User> getFollowing() {
     return Collections.unmodifiableList(following);
   }
-  
+
   public void addFollowing(User user) {
     following.add(user);
   }
@@ -100,7 +108,7 @@ public class User implements UserDetails {
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return roles;
   }
-  
+
   @Override
   public boolean isAccountNonExpired() {
     return true;
@@ -120,7 +128,7 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
-  
+
   public void addRole(Role role) {
     roles.add(role);
   }
