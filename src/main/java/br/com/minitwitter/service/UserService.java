@@ -18,7 +18,7 @@ public class UserService implements UserDetailsService {
     this.userRepository = userRepository;
   }
   
-  public void saveUser(User user) {
+  public void save(User user) {
     userRepository.save(user);
   }
 

@@ -38,8 +38,15 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "poster")
   private List<Tweet> tweets = new ArrayList<>();
+  
+  @ManyToMany(mappedBy = "following")
+  private List<User> followers = new ArrayList<>();
 
   private String profilePhotoPath;
+  
+  public List<User> getFollowers() {
+    return Collections.unmodifiableList(followers);
+  }
 
   public List<Tweet> getTweets() {
     return tweets;
@@ -131,6 +138,14 @@ public class User implements UserDetails {
 
   public void addRole(Role role) {
     roles.add(role);
+  }
+
+  public boolean isFollowing(User user) {
+    return getFollowing().contains(user);
+  }
+
+  public void removeFollowing(User user) {
+    following.remove(user);
   }
 
 }

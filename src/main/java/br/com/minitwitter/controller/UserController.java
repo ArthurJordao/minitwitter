@@ -1,16 +1,23 @@
 package br.com.minitwitter.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.minitwitter.model.Role;
+import br.com.minitwitter.model.Tweet;
 import br.com.minitwitter.model.User;
 import br.com.minitwitter.service.RoleService;
 import br.com.minitwitter.service.UserService;
@@ -47,7 +54,7 @@ public class UserController {
     
     user.addRole(role);
     
-    userService.saveUser(user);
+    userService.save(user);
     
     
     return "redirect:/";
@@ -70,5 +77,80 @@ public class UserController {
     
     return "users/login";
   }
+  
+  @GetMapping("/{username}")
+  public String profileDetails(@PathVariable("username") String username, Model model) {
+    Authentication auth = SecurityContextHolder.getContext()
+        .getAuthentication();
+    String currentUsername = auth.getName();
+    if(currentUsername.equals(username))
+      model.addAttribute("isOwner", true);
+    else
+      model.addAttribute("isOwner", false);
+    
+    User user = userService.loadUserByUsername(username);
+    User currentUser = new User();
+    currentUser.setUsername(currentUsername);
+    
+    if(userService.contains(currentUser)){
+      currentUser = userService.loadUserByUsername(currentUsername);
+      boolean isFollowing = currentUser.isFollowing(currentUser);
+      model.addAttribute("isFollowing", isFollowing);
+    } else {
+      model.addAttribute("isFollowing", false);
+    }
+    
+    List<Tweet> tweets = user.getTweets();
+    
+    model.addAttribute("tweets", tweets);
+    
+    model.addAttribute("user", user);
+    
+    model.addAttribute("following", user.getFollowing().size());
+    
+    model.addAttribute("followers", user.getFollowers().size());
+    
+    return "users/details";
+  }
+  
+  @PostMapping("/follow")
+  public String follow(@RequestParam("username") String username) {
+    Authentication auth = SecurityContextHolder.getContext()
+        .getAuthentication();
+    String currentUsername = auth.getName();
+    if(currentUsername.equals(username))
+      return "redirect:/" + username;
+    
+    User user = userService.loadUserByUsername(username);
+    User currentUser = new User();
+    currentUser.setUsername(currentUsername);
+    
+    if(!currentUser.isFollowing(user))
+      currentUser.addFollowing(user);
+    userService.save(currentUser);
+    
+    
+    return "redirect:/" + username;
+  }
 
+  @PostMapping("/unfollow")
+  public String unfollow(@RequestParam("username") String username) {
+    
+    Authentication auth = SecurityContextHolder.getContext()
+        .getAuthentication();
+    String currentUsername = auth.getName();
+    if(currentUsername.equals(username))
+      return "redirect:/" + username;
+    
+    User user = userService.loadUserByUsername(username);
+    User currentUser = new User();
+    currentUser.setUsername(currentUsername);
+    
+    if(currentUser.isFollowing(user))
+      currentUser.removeFollowing(user);
+    
+    userService.save(currentUser);
+    
+    return "redirect:/" + username;
+  }
 }

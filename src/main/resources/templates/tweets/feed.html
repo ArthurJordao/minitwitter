@@ -21,7 +21,7 @@
 			</form>
 		</div>
 		<div class="jumbotron" th:each="tweet : ${tweets}">
-			<h3 th:text="${tweet.poster.username}"></h3>
+			<h3><a th:href="@{/} + ${tweet.poster.username}" th:text="'@' + ${tweet.poster.username}"></a></h3>
 			<p th:utext="${tweet.content}"/>
 		</div>
 	</div>
