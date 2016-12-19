@@ -43,13 +43,12 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" sec:authorize="isAuthenticated()"
-						th:href="@{/}">Mini Twitter</a>
+					<a class="navbar-brand" th:href="@{/}">Mini Twitter</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a th:href="@{/} + ${#authentication.name}"
-							sec:authorize="hasRole('ROLE_NORMAL')"
+						<li sec:authorize="isAuthenticated()"><a
+							th:href="@{/} + ${#authentication.name}"
 							th:text="${#authentication.name}"></a></li>
 					</ul>
 

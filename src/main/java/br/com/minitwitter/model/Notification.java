@@ -23,6 +23,8 @@ public class Notification {
   
   private String content;
   
+  private String link;
+  
   private boolean readed;
   
   @Temporal(TemporalType.TIMESTAMP)
@@ -55,6 +57,14 @@ public class Notification {
 
   public void setReaded(boolean readed) {
     this.readed = readed;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
   }
 
 }

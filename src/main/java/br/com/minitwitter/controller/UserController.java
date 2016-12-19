@@ -54,6 +54,8 @@ public class UserController {
     
     user.addRole(role);
     
+    user.setUsername(user.getUsername().toLowerCase());
+    
     userService.save(user);
     
     
@@ -83,19 +85,23 @@ public class UserController {
     Authentication auth = SecurityContextHolder.getContext()
         .getAuthentication();
     String currentUsername = auth.getName();
+    User currentUser = new User();
+    currentUser.setUsername(currentUsername);
+    boolean containsUser = userService.contains(currentUser);
+    if (!containsUser)
+      return "redirect:/";
     if(currentUsername.equals(username))
       model.addAttribute("isOwner", true);
     else
       model.addAttribute("isOwner", false);
     
-    User user = userService.loadUserByUsername(username);
-    User currentUser = new User();
-    currentUser.setUsername(currentUsername);
+    User user = userService.loadUserByUsername(username.toLowerCase());
     
-    if(userService.contains(currentUser)){
+    if(containsUser){
       currentUser = userService.loadUserByUsername(currentUsername);
-      boolean isFollowing = currentUser.isFollowing(currentUser);
+      boolean isFollowing = currentUser.isFollowing(user);
       model.addAttribute("isFollowing", isFollowing);
+      
     } else {
       model.addAttribute("isFollowing", false);
     }
@@ -117,13 +123,12 @@ public class UserController {
   public String follow(@RequestParam("username") String username) {
     Authentication auth = SecurityContextHolder.getContext()
         .getAuthentication();
-    String currentUsername = auth.getName();
+    String currentUsername = auth.getName().toLowerCase();
     if(currentUsername.equals(username))
       return "redirect:/" + username;
     
     User user = userService.loadUserByUsername(username);
-    User currentUser = new User();
-    currentUser.setUsername(currentUsername);
+    User currentUser = userService.loadUserByUsername(currentUsername);
     
     if(!currentUser.isFollowing(user))
       currentUser.addFollowing(user);
@@ -138,13 +143,12 @@ public class UserController {
     
     Authentication auth = SecurityContextHolder.getContext()
         .getAuthentication();
-    String currentUsername = auth.getName();
+    String currentUsername = auth.getName().toLowerCase();
     if(currentUsername.equals(username))
       return "redirect:/" + username;
     
     User user = userService.loadUserByUsername(username);
-    User currentUser = new User();
-    currentUser.setUsername(currentUsername);
+    User currentUser = userService.loadUserByUsername(currentUsername);
     
     if(currentUser.isFollowing(user))
       currentUser.removeFollowing(user);

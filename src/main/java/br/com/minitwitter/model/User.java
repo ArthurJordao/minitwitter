@@ -98,7 +98,7 @@ public class User implements UserDetails {
     if (username == null) {
       if (other.username != null)
         return false;
-    } else if (!username.equals(other.username))
+    } else if (!username.toLowerCase().equals(other.username.toLowerCase()))
       return false;
     return true;
   }
