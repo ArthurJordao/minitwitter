@@ -19,5 +19,9 @@ public class TweetService {
   public void save(Tweet tweet) {
     tweetRepository.save(tweet);
   }
+
+  public Tweet getTweetBy(Long id) {
+    return tweetRepository.findOne(id);
+  }
   
 }

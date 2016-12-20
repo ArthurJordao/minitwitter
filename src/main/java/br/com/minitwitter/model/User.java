@@ -38,12 +38,19 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "poster")
   private List<Tweet> tweets = new ArrayList<>();
-  
+
   @ManyToMany(mappedBy = "following")
   private List<User> followers = new ArrayList<>();
 
+  @OneToMany(mappedBy = "user")
+  private List<Notification> notifications = new ArrayList<>();
+
   private String profilePhotoPath;
-  
+
+  public List<Notification> getNotifications() {
+    return Collections.unmodifiableList(notifications);
+  }
+
   public List<User> getFollowers() {
     return Collections.unmodifiableList(followers);
   }

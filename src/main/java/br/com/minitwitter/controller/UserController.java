@@ -84,7 +84,8 @@ public class UserController {
   public String profileDetails(@PathVariable("username") String username, Model model) {
     Authentication auth = SecurityContextHolder.getContext()
         .getAuthentication();
-    String currentUsername = auth.getName();
+    String currentUsername = auth.getName().toLowerCase();
+    username = username.toLowerCase();
     User currentUser = new User();
     currentUser.setUsername(currentUsername);
     boolean containsUser = userService.contains(currentUser);

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -85,6 +86,16 @@ public class TweetContoller {
     model.addAttribute("content", "");
     
     return "tweets/feed";
+  }
+  
+  @GetMapping("tweet/{id}")
+  public String tweetDetails(@PathVariable("id") Long id ,Model model) {
+    
+    Tweet tweet = tweetService.getTweetBy(id);
+    
+    model.addAttribute("tweet", tweet);
+    
+    return "tweets/details";
   }
   
 }

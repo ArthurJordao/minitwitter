@@ -50,6 +50,8 @@
 						<li sec:authorize="isAuthenticated()"><a
 							th:href="@{/} + ${#authentication.name}"
 							th:text="${#authentication.name}"></a></li>
+						<li sec:authorize="isAuthenticated()"><a
+							th:href="@{/notification}">Notifications</a></li>
 					</ul>
 
 					<form action="#" th:action="@{/login}" method="post"
