@@ -1,0 +1,19 @@
+# Setup
+title:        Mini Twitter project
+tagline:      A social network based on Twitter
+baseurl:      
+url:          "https://ArthurJordao.github.io/minitwitter/"
+paginate:     1
+
+# About/contact
+author:
+  name:       ArthurJordao
+  url:        https://ArthurJordao.github.io
+  twitter_user: _arthurjordao
+
+# Gems
+gems:
+  - jekyll-paginate
+
+#Others
+markdown: kramdown
