@@ -39,8 +39,8 @@ mvn install
 ```
 
 Execute the fatjar on target/:
-{% highlight bash %}
+```
 java -jar target/minitwitter-0.0.1-SNAPSHOT.jar
-{% endhighlight %}
+```
 
 [See how do it here]: https://docs.oracle.com/javase/tutorial/essential/environment/paths.html
