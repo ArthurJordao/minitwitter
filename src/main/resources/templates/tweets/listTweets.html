@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<th:block th:include="fragments/navbar :: navbarhead" />
+</head>
+<body>
+	<div class="container-fluid">
+
+		<th:block th:include="fragments/navbar :: navbar" />
+		<div th:each="tweet : ${tweets}">
+			<div class="jumbotron">
+				<h3>
+					<a th:href="@{/} + ${tweet.poster.username}"
+						th:text="'@' + ${tweet.poster.username}"></a>
+				</h3>
+				<p th:text="${tweet.content}" />
+			</div>
+		</div>
+	</div>
+
+	<th:block th:include="fragments/navbar :: navbarscripts" />
+</body>
+</html>

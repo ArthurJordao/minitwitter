@@ -98,4 +98,14 @@ public class TweetContoller {
     return "tweets/details";
   }
   
+  @GetMapping("allTweets")
+  public String allTweets(Model model) {
+    
+    Iterable<Tweet> tweets = tweetService.allTweets();
+    
+    model.addAttribute("tweets", tweets);
+    
+    return "tweets/listTweets";
+  }
+  
 }

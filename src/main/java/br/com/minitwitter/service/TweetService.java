@@ -23,5 +23,9 @@ public class TweetService {
   public Tweet getTweetBy(Long id) {
     return tweetRepository.findOne(id);
   }
+
+  public Iterable<Tweet> allTweets() {
+    return tweetRepository.findAllOrdenedByDate();
+  }
   
 }
