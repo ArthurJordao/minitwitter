@@ -24,21 +24,21 @@ import br.com.minitwitter.util.TweetUtil;
 
 @Controller
 public class TweetContoller {
-  
+
   private UserService userService;
   private TweetService tweetService;
   private NotificationService notificationService;
-  
+
   @Autowired
   public void setUserService(UserService userService) {
     this.userService = userService;
   }
-  
+
   @Autowired
   public void setTweetService(TweetService tweetService) {
     this.tweetService = tweetService;
   }
-  
+
   @Autowired
   public void setNotificationService(NotificationService notificationService) {
     this.notificationService = notificationService;
@@ -56,57 +56,56 @@ public class TweetContoller {
     tweet.setContent(content);
     tweet.setPoster(user);
     tweet.setTimeday(Calendar.getInstance());
-    
+
     tweetService.save(tweet);
-    TweetUtil.sendNotification(mentionedUsers, userService, notificationService, tweet);
-    
+    TweetUtil.sendNotification(mentionedUsers, userService, notificationService,
+        tweet);
+
     return "redirect:/feed";
   }
-
 
   @GetMapping("/feed")
   public String feed(Model model) {
     Authentication authenticated = SecurityContextHolder.getContext()
         .getAuthentication();
-    authenticated.getAuthorities().forEach(a -> System.out.println(a.getAuthority()));
     String username = authenticated.getName().toLowerCase();
-    
+
     User user = userService.loadUserByUsername(username);
-    
+
     List<User> following = user.getFollowing();
     ArrayList<Tweet> feedTweets = new ArrayList<>();
     feedTweets.addAll(user.getTweets());
-    
-    for(User userFollowed : following) {
+
+    for (User userFollowed : following) {
       List<Tweet> tweets = userFollowed.getTweets();
       feedTweets.addAll(tweets);
     }
-    
-    feedTweets.sort((t1,t2) -> t2.getTimeday().compareTo(t1.getTimeday()));
+
+    feedTweets.sort((t1, t2) -> t2.getTimeday().compareTo(t1.getTimeday()));
     model.addAttribute("tweets", feedTweets);
     model.addAttribute("content", "");
-    
+
     return "tweets/feed";
   }
-  
+
   @GetMapping("tweet/{id}")
-  public String tweetDetails(@PathVariable("id") Long id ,Model model) {
-    
+  public String tweetDetails(@PathVariable("id") Long id, Model model) {
+
     Tweet tweet = tweetService.getTweetBy(id);
-    
+
     model.addAttribute("tweet", tweet);
-    
+
     return "tweets/details";
   }
-  
+
   @GetMapping("allTweets")
   public String allTweets(Model model) {
-    
+
     Iterable<Tweet> tweets = tweetService.allTweets();
-    
+
     model.addAttribute("tweets", tweets);
-    
+
     return "tweets/listTweets";
   }
-  
+
 }
