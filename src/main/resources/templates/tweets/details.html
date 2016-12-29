@@ -8,9 +8,7 @@
 	<div class="container-fluid">
 
 		<th:block th:include="fragments/navbar :: navbar" />
-		<div class="jumbotron">
-			<h3><a th:href="@{/} + ${tweet.poster.username}" th:text="'@' + ${tweet.poster.username}"></a></h3>
-			<p th:text="${tweet.content}"/>
+		<div class="jumbotron" th:include="fragments/tweet :: tweet">
 		</div>
 	</div>
 

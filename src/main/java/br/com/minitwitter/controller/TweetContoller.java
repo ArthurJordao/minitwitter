@@ -68,6 +68,7 @@ public class TweetContoller {
   public String feed(Model model) {
     Authentication authenticated = SecurityContextHolder.getContext()
         .getAuthentication();
+    authenticated.getAuthorities().forEach(a -> System.out.println(a.getAuthority()));
     String username = authenticated.getName().toLowerCase();
     
     User user = userService.loadUserByUsername(username);
