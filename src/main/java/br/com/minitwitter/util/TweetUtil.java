@@ -40,10 +40,10 @@ public class TweetUtil {
 
   /**
    * Send notifications to users that exist in the system
-   * @param mentionedUsers
-   * @param userService
-   * @param notificationService
-   * @param tweet
+   * @param mentionedUsers Users in String
+   * @param userService injected by string
+   * @param notificationService injected by string
+   * @param tweet the current tweet that will be posted
    */
   public static void sendNotification(Set<String> mentionedUsers,
       UserService userService, NotificationService notificationService, Tweet tweet) {

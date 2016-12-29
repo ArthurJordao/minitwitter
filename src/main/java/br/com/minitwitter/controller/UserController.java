@@ -48,8 +48,8 @@ public class UserController {
   /**
    * a post method to create a new user
    * 
-   * @param user
-   * @param br
+   * @param user valid
+   * @param br injected
    * @return a redirect to the index page
    */
   @PostMapping("/user")
@@ -79,7 +79,7 @@ public class UserController {
   /**
    * get method to create a new user from a form
    * 
-   * @param model
+   * @param model injected
    * @return form's model path
    */
   @GetMapping("/user")
@@ -94,7 +94,7 @@ public class UserController {
   /**
    * get method to the login page
    * 
-   * @param model
+   * @param model injected
    * @return login's model path
    */
   @GetMapping("/login")
@@ -109,8 +109,8 @@ public class UserController {
   /**
    * a get method to see the details of a user
    * 
-   * @param username
-   * @param model
+   * @param username of a user that contains in the system
+   * @param model injeted
    * @return details' model path
    */
   @GetMapping("/{username}")
@@ -156,7 +156,7 @@ public class UserController {
   /**
    * A post method to the current user follow other user
    * 
-   * @param username
+   * @param username of a user that contains in the system
    * @return a redirect to the index page
    */
   @PostMapping("/follow")
@@ -181,7 +181,7 @@ public class UserController {
   /**
    * A post method to the current user unfollow other user
    * 
-   * @param username
+   * @param username of a user that contains in the system
    * @return a redirect to the index page
    */
   @PostMapping("/unfollow")

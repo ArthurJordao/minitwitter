@@ -54,7 +54,7 @@ public class TweetContoller {
   /**
    * Map a post method to a new tweet to a user
    * 
-   * @param content
+   * @param content a valid tweet content
    * @return a redirect to /feed
    */
   @PostMapping("/tweet")
@@ -80,7 +80,7 @@ public class TweetContoller {
   /**
    * a get method to feed of the current user
    * 
-   * @param model
+   * @param model injected
    * @return the path of the feed's model
    */
   @GetMapping("/feed")
@@ -110,8 +110,8 @@ public class TweetContoller {
   /**
    * get method that show the details of a tweet
    * 
-   * @param id
-   * @param model
+   * @param id of a user that contains in the system
+   * @param model injected
    * @return the path of tweet details' model
    */
   @GetMapping("tweet/{id}")
@@ -127,7 +127,7 @@ public class TweetContoller {
   /**
    * Get method that show all tweets in the system
    * 
-   * @param model
+   * @param model injected
    * @return path of tweet list's model
    */
   @GetMapping("allTweets")

@@ -40,7 +40,7 @@ public class NotificationController {
   /**
    * Get the notification of the current logged user
    * 
-   * @param model
+   * @param model inject by string
    * @return model of notification list's path
    */
   @RequestMapping("notification")

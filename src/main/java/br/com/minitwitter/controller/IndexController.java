@@ -24,7 +24,7 @@ public class IndexController {
    * 
    * this method add a empty user to the model for register a new user
    * 
-   * @param model
+   * @param model injected by spring
    * @return a view of index
    */
   @GetMapping
