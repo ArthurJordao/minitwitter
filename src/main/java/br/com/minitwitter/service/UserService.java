@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 import br.com.minitwitter.model.User;
 import br.com.minitwitter.repository.UserRepository;
 
+/**
+ * a class with user services
+ * @author arthur
+ *
+ */
+
 @Repository
 public class UserService implements UserDetailsService {
   

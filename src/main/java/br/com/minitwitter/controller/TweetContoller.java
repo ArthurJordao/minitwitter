@@ -22,6 +22,13 @@ import br.com.minitwitter.service.TweetService;
 import br.com.minitwitter.service.UserService;
 import br.com.minitwitter.util.TweetUtil;
 
+/**
+ * this class is a controller to manage the tweets
+ * 
+ * @author arthur
+ *
+ */
+
 @Controller
 public class TweetContoller {
 
@@ -44,6 +51,12 @@ public class TweetContoller {
     this.notificationService = notificationService;
   }
 
+  /**
+   * Map a post method to a new tweet to a user
+   * 
+   * @param content
+   * @return a redirect to /feed
+   */
   @PostMapping("/tweet")
   public String newTweet(@RequestParam("content") String content) {
     Authentication authenticated = SecurityContextHolder.getContext()
@@ -64,6 +77,12 @@ public class TweetContoller {
     return "redirect:/feed";
   }
 
+  /**
+   * a get method to feed of the current user
+   * 
+   * @param model
+   * @return the path of the feed's model
+   */
   @GetMapping("/feed")
   public String feed(Model model) {
     Authentication authenticated = SecurityContextHolder.getContext()
@@ -88,6 +107,13 @@ public class TweetContoller {
     return "tweets/feed";
   }
 
+  /**
+   * get method that show the details of a tweet
+   * 
+   * @param id
+   * @param model
+   * @return the path of tweet details' model
+   */
   @GetMapping("tweet/{id}")
   public String tweetDetails(@PathVariable("id") Long id, Model model) {
 
@@ -98,6 +124,12 @@ public class TweetContoller {
     return "tweets/details";
   }
 
+  /**
+   * Get method that show all tweets in the system
+   * 
+   * @param model
+   * @return path of tweet list's model
+   */
   @GetMapping("allTweets")
   public String allTweets(Model model) {
 

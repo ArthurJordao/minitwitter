@@ -11,6 +11,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.com.minitwitter.service.UserService;
 
+/**
+ * This class configure the websecurity
+ * @author arthur
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

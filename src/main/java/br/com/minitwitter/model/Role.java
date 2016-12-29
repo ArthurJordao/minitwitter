@@ -5,6 +5,12 @@ import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * a model class to roles
+ * @author arthur
+ *
+ */
+
 @Entity
 public class Role implements GrantedAuthority {
   

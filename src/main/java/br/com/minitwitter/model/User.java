@@ -14,6 +14,13 @@ import javax.validation.constraints.Size;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * a model class to users
+ * @author arthur
+ *
+ */
+
+
 @Entity
 public class User implements UserDetails {
 

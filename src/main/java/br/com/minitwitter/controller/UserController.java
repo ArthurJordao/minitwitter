@@ -22,6 +22,13 @@ import br.com.minitwitter.model.User;
 import br.com.minitwitter.service.RoleService;
 import br.com.minitwitter.service.UserService;
 
+/**
+ * A controller class to user actions
+ * 
+ * @author arthur
+ *
+ */
+
 @Controller
 public class UserController {
   
@@ -38,6 +45,13 @@ public class UserController {
     this.roleService = roleService;
   }
 
+  /**
+   * a post method to create a new user
+   * 
+   * @param user
+   * @param br
+   * @return a redirect to the index page
+   */
   @PostMapping("/user")
   public String createUser(@Valid @ModelAttribute User user, BindingResult br) {
     if (userService.contains(user))
@@ -62,6 +76,12 @@ public class UserController {
     return "redirect:/";
   }
   
+  /**
+   * get method to create a new user from a form
+   * 
+   * @param model
+   * @return form's model path
+   */
   @GetMapping("/user")
   public String userForm(Model model) {
     User user = new User();
@@ -71,6 +91,12 @@ public class UserController {
     
   }
   
+  /**
+   * get method to the login page
+   * 
+   * @param model
+   * @return login's model path
+   */
   @GetMapping("/login")
   public String loginForm(Model model) {
     User user = new User();
@@ -80,6 +106,13 @@ public class UserController {
     return "users/login";
   }
   
+  /**
+   * a get method to see the details of a user
+   * 
+   * @param username
+   * @param model
+   * @return details' model path
+   */
   @GetMapping("/{username}")
   public String profileDetails(@PathVariable("username") String username, Model model) {
     Authentication auth = SecurityContextHolder.getContext()
@@ -120,6 +153,12 @@ public class UserController {
     return "users/details";
   }
   
+  /**
+   * A post method to the current user follow other user
+   * 
+   * @param username
+   * @return a redirect to the index page
+   */
   @PostMapping("/follow")
   public String follow(@RequestParam("username") String username) {
     Authentication auth = SecurityContextHolder.getContext()
@@ -139,6 +178,12 @@ public class UserController {
     return "redirect:/" + username;
   }
 
+  /**
+   * A post method to the current user unfollow other user
+   * 
+   * @param username
+   * @return a redirect to the index page
+   */
   @PostMapping("/unfollow")
   public String unfollow(@RequestParam("username") String username) {
     

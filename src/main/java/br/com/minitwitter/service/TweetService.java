@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 import br.com.minitwitter.model.Tweet;
 import br.com.minitwitter.repository.TweetRepository;
 
+/**
+ * a class with role services
+ * @author arthur
+ *
+ */
+
 @Repository
 public class TweetService {
 

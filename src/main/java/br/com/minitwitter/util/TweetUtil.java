@@ -11,7 +11,19 @@ import br.com.minitwitter.model.User;
 import br.com.minitwitter.service.NotificationService;
 import br.com.minitwitter.service.UserService;
 
+/**
+ * A class to help use tweets
+ * 
+ * @author arthur
+ *
+ */
+
 public class TweetUtil {
+  /**
+   * 
+   * @param content a valid content tweet
+   * @return a list of users mentioneds with lowercase
+   */
   public static Set<String> getMentionedUsers(String content) {
     String pattern = "(^|[^A-Za-z0-9_-])@([A-Za-z0-9_-]+)";
     Pattern r = Pattern.compile(pattern);
@@ -26,6 +38,13 @@ public class TweetUtil {
     return mentionedUsers;
   }
 
+  /**
+   * Send notifications to users that exist in the system
+   * @param mentionedUsers
+   * @param userService
+   * @param notificationService
+   * @param tweet
+   */
   public static void sendNotification(Set<String> mentionedUsers,
       UserService userService, NotificationService notificationService, Tweet tweet) {
     for (String username : mentionedUsers) {

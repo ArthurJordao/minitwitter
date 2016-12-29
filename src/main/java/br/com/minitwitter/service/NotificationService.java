@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 import br.com.minitwitter.model.Notification;
 import br.com.minitwitter.repository.NotificationRepository;
 
+/**
+ * a class with notification services
+ * @author arthur
+ *
+ */
+
 @Repository
 public class NotificationService {
   

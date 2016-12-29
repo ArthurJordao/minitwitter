@@ -14,6 +14,13 @@ import br.com.minitwitter.model.User;
 import br.com.minitwitter.service.NotificationService;
 import br.com.minitwitter.service.UserService;
 
+/**
+ * this class is a controller to manage the user's notification
+ * 
+ * @author arthur
+ *
+ */
+
 @Controller
 public class NotificationController {
 
@@ -30,23 +37,29 @@ public class NotificationController {
     this.notificationService = notificationService;
   }
 
+  /**
+   * Get the notification of the current logged user
+   * 
+   * @param model
+   * @return model of notification list's path
+   */
   @RequestMapping("notification")
   public String getNotifications(Model model) {
-    
+
     Authentication authenticated = SecurityContextHolder.getContext()
         .getAuthentication();
     String username = authenticated.getName().toLowerCase();
-    
+
     User user = userService.loadUserByUsername(username);
     List<Notification> notifications = user.getNotifications();
-    
+
     model.addAttribute("notifications", notifications);
-    
-    for(Notification notification : notifications) {
+
+    for (Notification notification : notifications) {
       notification.setReaded(true);
       notificationService.save(notification);
     }
-    
+
     return "notifications/list";
   }
 

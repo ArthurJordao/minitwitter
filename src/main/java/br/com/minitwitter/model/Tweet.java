@@ -12,6 +12,13 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+/**
+ * a model class to tweets
+ * @author arthur
+ *
+ */
+
+
 @Entity
 public class Tweet {
   

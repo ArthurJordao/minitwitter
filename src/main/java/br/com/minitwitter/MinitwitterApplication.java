@@ -6,6 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
+/**
+ * This class contain the main method to execute the application
+ * @author arthur
+ *
+ */
 @SpringBootApplication
 public class MinitwitterApplication {
 
