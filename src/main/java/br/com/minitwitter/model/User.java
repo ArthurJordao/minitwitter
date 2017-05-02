@@ -5,11 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
+@Table( name = "systemuser" )
 public class User implements UserDetails {
 
   /**
